@@ -23,7 +23,8 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
-* Tenemos tres branches (onetoone,onetomany,manytomany)
+* Tenemos 5 branches (main,onetoone,onetomany,manytomany,final);
+* En el branch final esta el API TASTK al completo, con todas las relaciones y las tasks con su usuario.
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
 ## Installation
