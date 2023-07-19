@@ -32,14 +32,26 @@ export class PhotosService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} photo`;
+    return this.photoRepo.findOne({
+      where: { id },
+      relations: { profile: true },
+    });
   }
 
-  update(id: number, updatePhotoDto: UpdatePhotoDto) {
-    return `This action updates a #${id} photo`;
+  async update(id: number, updatePhotoDto: UpdatePhotoDto) {
+    const profile = await this.profileRepo.findOne({
+      where: { id: updatePhotoDto.profileId },
+    });
+    if (!profile) {
+      throw new NotFoundException('profile not found');
+    }
+    const newPhoto = new Photo();
+    newPhoto.profile = profile;
+    newPhoto.url = updatePhotoDto.url;
+    return this.photoRepo.update(id, newPhoto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} photo`;
+    return this.photoRepo.delete(id);
   }
 }
