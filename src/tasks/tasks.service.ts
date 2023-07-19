@@ -35,7 +35,7 @@ export class TasksService {
     return this.tasksRepo.find({
       relations: {
         categories: true,
-        user: true,
+        user: { profile: true },
       },
     });
   }
