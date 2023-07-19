@@ -41,7 +41,12 @@ export class TasksService {
   }
 
   async update(id: number, updateTaskDto: UpdateTaskDto) {
+    const categoriesIds = updateTaskDto.categoriesIds;
+    const categories = await this.categoryRepo.findBy({
+      id: In(categoriesIds),
+    });
     const task = await this.tasksRepo.findOne({ where: { id } });
+    task.categories = categories;
     this.tasksRepo.merge(task, updateTaskDto);
     return this.tasksRepo.save(task);
   }
