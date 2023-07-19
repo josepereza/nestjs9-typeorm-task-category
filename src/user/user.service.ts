@@ -29,6 +29,7 @@ export class UserService {
     return this.usersRepo.find({
       relations: {
         profile: true,
+        tasks: true,
       },
     });
   }

@@ -5,12 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { Task } from './entities/task.entity';
 import { Category } from '../categories/entities/category.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class TasksService {
   constructor(
     @InjectRepository(Task) private tasksRepo: Repository<Task>,
     @InjectRepository(Category) private categoryRepo: Repository<Category>,
+    @InjectRepository(User) private userRepo: Repository<User>,
   ) {}
 
   async create(createTaskDto: CreateTaskDto) {
@@ -21,6 +23,10 @@ export class TasksService {
     const categories = await this.categoryRepo.findBy({
       id: In(categoriesIds),
     });
+    const user = await this.userRepo.findOne({
+      where: { id: createTaskDto.userId },
+    });
+    newTask.user = user;
     newTask.categories = categories;
     return this.tasksRepo.save(newTask);
   }

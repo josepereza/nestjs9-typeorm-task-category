@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   ManyToMany,
   JoinTable,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 import { Category } from '../../categories/entities/category.entity';
+import { User } from 'src/user/entities/user.entity';
 
 @Entity()
 export class Task {
@@ -30,4 +33,8 @@ export class Task {
     },
   })
   categories: Category[];
+
+  @ManyToOne(() => User, (user) => user.tasks)
+  @JoinColumn({ name: 'profile_id' })
+  user: User;
 }

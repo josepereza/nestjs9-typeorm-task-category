@@ -25,4 +25,6 @@ export class Profile {
 
   @OneToMany(() => Photo, (photo) => photo.profile)
   photos: Photo[];
+
+  
 }
