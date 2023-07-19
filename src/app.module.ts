@@ -5,6 +5,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { CategoriesModule } from './categories/categories.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { PhotosModule } from './photos/photos.module';
 
 
 @Module({
@@ -22,6 +23,7 @@ import { UserModule } from './user/user.module';
       synchronize: true,
     }),
     UserModule,
+    PhotosModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 
 import { User } from './user.entity';
+import { Photo } from 'src/photos/entities/photo.entity';
 
 @Entity()
 export class Profile {
@@ -21,4 +22,7 @@ export class Profile {
 
   @OneToOne(() => User, (user) => user.profile)
   user: User;
+
+  @OneToMany(() => Photo, (photo) => photo.profile)
+  photos: Photo[];
 }
