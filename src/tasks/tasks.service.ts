@@ -34,14 +34,20 @@ export class TasksService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} task`;
+    return this.tasksRepo.findOne({
+      where: { id },
+      relations: { categories: true },
+    });
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  async update(id: number, updateTaskDto: UpdateTaskDto) {
+    const task = await this.tasksRepo.findOne({ where: { id } });
+    this.tasksRepo.merge(task, updateTaskDto);
+    return this.tasksRepo.save(task);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  async remove(id: number) {
+    await this.tasksRepo.delete(id);
+    return true;
   }
 }
